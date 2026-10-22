@@ -122,13 +122,21 @@ async def logs(tail: int = 200):
 
 # ---------------------------------------------------------------- downloads (contract endpoint `install`)
 
+def _key(voice_id: str) -> str:
+    """Download ids are lowercase (ai-serve's rule for item ids); voice ids keep Piper's spelling (de_DE-...)."""
+    return voice_id.lower()
+
+
+_BY_KEY = {_key(v): v for v in VOICES}
+
+
 def _item(key: str) -> Dict[str, Any]:
     st = _installs.get(key, {})
     if key == ENGINE_ITEM:
         there, label, desc, lic, size = (engine_ready(), "Piper", "The speech engine (its own Python environment)",
                                          "GPL-3.0", 60)
     else:
-        v = VOICES[key]
+        v = VOICES[_BY_KEY[key]]
         there, label, desc, lic, size = (installed(v, VOICES_DIR), f"Piper voice: {v.label}",
                                          f"Language {v.language}; training data: {v.data_license}",
                                          f"MIT (model), {v.data_license} (data)", v.size_mb)
@@ -149,7 +157,7 @@ def _run(key: str) -> None:
         if key != ENGINE_ITEM:
             def progress(n: int) -> None:
                 _installs[key]["done"] = _installs[key].get("done", 0) + n
-            download(VOICES[key], VOICES_DIR, progress)
+            download(VOICES[_BY_KEY[key]], VOICES_DIR, progress)
         _installs[key] = {"state": "installed"}
     except Exception as e:
         _installs[key] = {"state": "failed", "error": str(e)[:300]}
@@ -157,14 +165,14 @@ def _run(key: str) -> None:
 
 @app.get("/plugin/install")
 async def install_list():
-    keys = ([ENGINE_ITEM] if not engine_ready() else []) + list(VOICES)
+    keys = ([ENGINE_ITEM] if not engine_ready() else []) + list(_BY_KEY)
     return {"items": [_item(k) for k in keys]}
 
 
 @app.post("/plugin/install", status_code=202)
 async def install_start(body: Any = Body(...)):
     key = body.get("id") if isinstance(body, dict) else None
-    if key != ENGINE_ITEM and key not in VOICES:     # only the id comes from the request -- files and hashes are ours
+    if key != ENGINE_ITEM and key not in _BY_KEY:    # only the id comes from the request -- files and hashes are ours
         raise HTTPException(status_code=404, detail="nothing to download under that id")
     with _lock:
         if _item(key)["state"] not in ("installed", "downloading"):

@@ -59,8 +59,9 @@ under `plugins/`, starts it when it's needed, and calls only the paths the manif
   ref_text, keep_alive, response_format`) → WAV bytes; what the engine can't do → `400` with a reason.
 - `status` → `{"busy", "ready", "facts", "workers"}` – `workers` are processes holding memory (none here: Piper runs
   per request); `release` frees them (`409` while busy); `logs` → `{"logs"}`.
-- `install` – `GET` → what can still be downloaded, `POST {"id"}` starts it in the background. The request carries
-  **only the id**: which files, from where and with which checksum is the plugin's own business.
+- `install` – `GET` → what can still be downloaded (`id`s in lowercase letters, digits, `.`, `_`, `-`), `POST {"id"}`
+  starts it in the background. The request carries **only the id**: which files, from where and with which checksum
+  is the plugin's own business.
 - `gpu` in the manifest: `none` here; a plugin that loads models onto a GPU says `shared` and asks ai-serve first
   (`POST /api/coordination/gpu-preflight`) – see the contract.
 

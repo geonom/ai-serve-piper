@@ -67,11 +67,18 @@ def test_install_takes_only_known_ids(client, monkeypatch):
     started = []
     monkeypatch.setattr(plugin, "_run", lambda key: started.append(key))
     assert client.post("/plugin/install", json={"id": "../../etc"}).status_code == 404
-    assert client.post("/plugin/install", json={"id": "fr_FR-siwis-medium"}).status_code == 202
+    assert client.post("/plugin/install", json={"id": "fr_fr-siwis-medium"}).status_code == 202
     for _ in range(50):
         if started:
             break
         time.sleep(0.02)
-    assert started == ["fr_FR-siwis-medium"]
+    assert started == ["fr_fr-siwis-medium"]
     items = {i["id"]: i for i in client.get("/plugin/install").json()["items"]}
-    assert items["de_DE-thorsten-medium"]["state"] == "installed" and "CC0" in items["de_DE-thorsten-medium"]["license"]
+    assert items["de_de-thorsten-medium"]["state"] == "installed" and "CC0" in items["de_de-thorsten-medium"]["license"]
+
+
+def test_download_ids_follow_ai_serves_rule(client):
+    """ai-serve accepts only lowercase item ids (^[a-z0-9][a-z0-9._-]{0,63}$) -- found in the first end-to-end run."""
+    import re
+    for i in client.get("/plugin/install").json()["items"]:
+        assert re.fullmatch(r"[a-z0-9][a-z0-9._-]{0,63}", i["id"]), i["id"]
