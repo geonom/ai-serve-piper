@@ -1,0 +1,20 @@
+# The plugin's tests on Linux and an Apple Silicon Mac for every push -- no Piper and no network needed (faked).
+name: tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.2   # exact version: setup-uv publishes no floating major tags since v8
+      - run: |
+          uv venv --python 3.12 .venv
+          uv pip install --python .venv/bin/python -r requirements-dev.txt
+          .venv/bin/python -m pytest -q

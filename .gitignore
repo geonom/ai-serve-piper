@@ -1,0 +1,6 @@
+.venv/
+piper-venv/
+voices/
+logs/
+__pycache__/
+.pytest_cache/

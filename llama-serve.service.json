@@ -1,0 +1,28 @@
+{
+  "id": "piper",
+  "name": "Piper",
+  "description": "Fast speech output on the CPU with Piper (no GPU needed) -- and an example of an ai-serve plugin.",
+  "command": ["./run.sh"],
+  "env": {"PORT": "{port}"},
+  "port": 8095,
+  "bind": "127.0.0.1",
+  "match": ["piper_plugin.app"],
+  "health_path": "/health",
+  "status_path": "/plugin/status",
+  "category": "ai",
+  "icon": "speaker",
+  "identity": "none",
+  "maturity": "alpha",
+  "ui": false,
+  "provides": {
+    "tts": {
+      "catalog": "/v1/engines",
+      "generate": "/v1/generate",
+      "status": "/plugin/status",
+      "release": "/plugin/release",
+      "logs": "/plugin/logs",
+      "install": "/plugin/install",
+      "gpu": "none"
+    }
+  }
+}
