@@ -66,6 +66,24 @@ VOICES: Dict[str, Voice] = {
             VoiceFile("de/de_DE/kerstin/low/de_DE-kerstin-low.onnx", 63104526, "d352a7641892cebf2903859af94e9ba81a141110215fe3943bcda7f7da401b7a"),
             VoiceFile("de/de_DE/kerstin/low/de_DE-kerstin-low.onnx.json", 4158, "56e708556b7b9b7a53c4f8957e021421e69f11a600962bba554cffbe72cf2d47"),
         )),
+    # four more German speakers (2026-10-24, owner: six different voices per engine where possible)
+    "de_DE-eva_k-x_low": Voice("de_DE-eva_k-x_low", "Eva K (German, female)", "de", "M-AILABS (see caito.de)", (
+            VoiceFile("de/de_DE/eva_k/x_low/de_DE-eva_k-x_low.onnx", 20628813, "e88cf290fbfb768bf111330d2e8a46e376b0d85e3423a28bfebbc863a260dad8"),
+            VoiceFile("de/de_DE/eva_k/x_low/de_DE-eva_k-x_low.onnx.json", 4158, "ef14b3dcb279ab4b18422a7a132877bee7a148821bd91152fb7ae9c4b3d79625"),
+        )),
+    "de_DE-karlsson-low": Voice("de_DE-karlsson-low", "Karlsson (German, male)", "de", "M-AILABS (see caito.de)", (
+            VoiceFile("de/de_DE/karlsson/low/de_DE-karlsson-low.onnx", 63104526, "f9793bf7e461a472b3916cf260774bfc9812e9eb72601b147ed649d01064e8fe"),
+            VoiceFile("de/de_DE/karlsson/low/de_DE-karlsson-low.onnx.json", 4159, "3b2095adbfeede316f22007a0a09d4bfc25514b7189850740b06800a6cfb9838"),
+        )),
+    "de_DE-ramona-low": Voice("de_DE-ramona-low", "Ramona (German, female)", "de", "M-AILABS (see caito.de)", (
+            VoiceFile("de/de_DE/ramona/low/de_DE-ramona-low.onnx", 63104526, "a1068592532aad8c49bf3d1a01b8749c11d7dba726689ee28ad64e7b627ae4c5"),
+            VoiceFile("de/de_DE/ramona/low/de_DE-ramona-low.onnx.json", 4157, "64906ab7a050ac685fa3dcea044baa798f67ed77be164f9c668a69298c6487d2"),
+        )),
+    "de_DE-pavoque-low": Voice("de_DE-pavoque-low", "Pavoque (German, male; non-commercial)", "de",
+                               "CC-BY-NC-SA-4.0 (PAVOQUE) -- not for commercial use", (
+            VoiceFile("de/de_DE/pavoque/low/de_DE-pavoque-low.onnx", 63104526, "96cd41fe2303dfe4745422a2580658bdbc5f935b7ee67640a94da7435a502a26"),
+            VoiceFile("de/de_DE/pavoque/low/de_DE-pavoque-low.onnx.json", 4158, "07d43d8946e869209a12d9b4fd780e3f277fe9afb305c21491a68bd97e01b74f"),
+        )),
     "fr_FR-siwis-medium": Voice("fr_FR-siwis-medium", "Siwis (French, female)", "fr", "CC-BY-4.0 (SIWIS)", (
             VoiceFile("fr/fr_FR/siwis/medium/fr_FR-siwis-medium.onnx", 63201294, "641d1ab097da2b81128c076810edb052b385decc8be3381814802a64a73baf99"),
             VoiceFile("fr/fr_FR/siwis/medium/fr_FR-siwis-medium.onnx.json", 4875, "39479916c2db192b5ac9764daddd0c744d83e023ad890c6976c0633ae4df8959"),
