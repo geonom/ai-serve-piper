@@ -52,7 +52,7 @@ def catalog(installed: Iterable[str], engine_ready: bool) -> Dict[str, Any]:
             "params": [SPEED],
         }],
     }], "default_engine": ENGINE, "errors": [] if have or not engine_ready else
-        ["no voice installed yet -- download one (Downloads in the dashboard or the Spielwiese)"]}
+        ["no voice installed yet -- download one (Downloads in the dashboard or the Playground)"]}
 
 
 def plan(body: Any, installed: Iterable[str]) -> Job:

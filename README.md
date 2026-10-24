@@ -10,9 +10,9 @@ complete example of an ai-serve plugin** you can copy to build your own (MIT).
 ./ai-serve restart
 ```
 
-Then download a voice in the dashboard (*Compute & models → Downloads*) or the Spielwiese (*Speech*), or right away:
+Then download a voice in the dashboard (*Compute & models → Downloads*) or the Playground (*Speech*), or right away:
 `plugins/ai-serve-piper/setup.sh --voices de_DE-thorsten-medium,en_US-ljspeech-medium`. Piper shows up as the engine
-`piper` everywhere ai-serve offers speech – the Spielwiese, `/api/tts/generate`, and OpenAI's `/v1/audio/speech`
+`piper` everywhere ai-serve offers speech – the Playground, `/api/tts/generate`, and OpenAI's `/v1/audio/speech`
 (`"model": "piper"`, `"voice"`: one of the voice ids below, or anything else for the language's first voice).
 
 | Voice | Language | Training data |
@@ -54,7 +54,7 @@ under `plugins/`, starts it when it's needed, and calls only the paths the manif
 - `catalog` – `GET` → `{"engines": [{"id", "name", "description", "license", "installed", "languages",
   "modes": [{"variant", "label", "inputs", "speakers", "params"}]}], "default_engine", "errors"}`. `inputs` says what a
   request may (`optional`) or must (`required`) carry: `speaker`, `reference` (a recording to clone), `ref_text`,
-  `instruct`; `params` are numbers with `min`/`max`/`default`. The Spielwiese builds its form from exactly this.
+  `instruct`; `params` are numbers with `min`/`max`/`default`. The Playground builds its form from exactly this.
 - `generate` – `POST` the request (`engine, text, language, variant, speaker, params, instruct, ref_audio_base64,
   ref_text, keep_alive, response_format`) → WAV bytes; what the engine can't do → `400` with a reason.
 - `status` → `{"busy", "ready", "facts", "workers"}` – `workers` are processes holding memory (none here: Piper runs
